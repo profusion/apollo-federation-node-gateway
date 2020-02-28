@@ -1,0 +1,66 @@
+{
+  "name": "@profusion/apollo-federation-node-gateway",
+  "version": "1.0.0",
+  "main": "./build/lib/index.js",
+  "types": "./build/lib/index.d.ts",
+  "author": "Guilherme Iscaro (iscaro@profusion.mobi)",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "check-types": "tsc --noEmit",
+    "run-lint": "eslint --max-warnings=0 --ext .ts lib",
+    "lint": "run-s check-types run-lint",
+    "generate-code": "tsc",
+    "build": "run-s lint generate-code fix-paths",
+    "prepublishOnly": "run-s build",
+    "fix-paths": "ef-tspm",
+    "install-peers": "install-peers -f"
+  },
+  "bin": {
+    "graphql-generate-type-ids": "./build/bin/graphql-generate-type-ids.js"
+  },
+  "engines": {
+    "node": "^12.14.0",
+    "yarn": "^1.21.1"
+  },
+  "dependencies": {
+    "lodash.difference": "^4.5.0",
+    "yargs": "^15.1.0"
+  },
+  "peerDependencies": {
+    "@apollo/federation": "^0.11.3",
+    "@apollo/gateway": "^0.11.3",
+    "apollo-server": "^2.10.1",
+    "graphql": "^14.5.8",
+    "graphql-tag": "^2.10.3",
+    "graphql-tools": "^4.0.6"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint",
+      "pre-push": "yarn lint",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-angular": "^8.3.4",
+    "@ef-carbon/tspm": "^2.2.5",
+    "@types/lodash.difference": "^4.5.6",
+    "@typescript-eslint/eslint-plugin": "^2.20.0",
+    "@typescript-eslint/parser": "^2.20.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-import-resolver-typescript": "^2.0.0",
+    "eslint-plugin-filenames": "^1.3.2",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-prettier": "^3.1.2",
+    "husky": "^4.2.3",
+    "install-peers-cli": "^2.2.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^1.19.1",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.8.2"
+  }
+}
