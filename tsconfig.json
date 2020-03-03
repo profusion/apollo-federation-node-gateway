@@ -26,6 +26,7 @@
       "@utils/*": ["lib/utils/*"],
       "@gateway": ["lib/gateway"],
       "@service": ["lib/service"],
+      "@directives/*": ["lib/directives/*"],
       "@utils": ["lib/utils"]
     }
   },

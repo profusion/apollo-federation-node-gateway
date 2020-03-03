@@ -24,6 +24,7 @@
     "yarn": "^1.21.1"
   },
   "dependencies": {
+    "@profusion/apollo-validation-directives": "^1.0.2",
     "lodash.difference": "^4.5.0",
     "yargs": "^15.1.0"
   },

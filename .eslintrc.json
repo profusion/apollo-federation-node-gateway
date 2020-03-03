@@ -30,6 +30,7 @@
         }
     },
     "rules": {
+        "class-methods-use-this": "off",
         "import/extensions": ["error", "never"],
         "@typescript-eslint/consistent-type-assertions": [
             "error",

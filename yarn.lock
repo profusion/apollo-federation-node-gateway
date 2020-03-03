@@ -185,6 +185,11 @@
     mkdirp "^0.5.1"
     rimraf "^2.5.2"
 
+"@profusion/apollo-validation-directives@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@profusion/apollo-validation-directives/-/apollo-validation-directives-1.0.2.tgz#7cb8268369d0be8763233783d21d3866e850bbd4"
+  integrity sha512-71cXyJ1lXZQx2c1xYJHwWE1QVeq4ZLUt4NRtHPWiTALqPsC3QnHbzBqZUK3vF7KE5d7LrLFdTttJ1BA8LSkNaQ==
+
 "@types/color-name@^1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@types/color-name/-/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
