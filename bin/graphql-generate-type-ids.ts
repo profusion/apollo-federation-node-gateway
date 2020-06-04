@@ -45,7 +45,7 @@ const searchSchemas = (dirPath: string): string[] =>
 
 const nodeTypes = new Set<string>();
 const rootFolder = args._[0];
-const fileEncoding = { encoding: 'utf8' };
+const fileEncoding: { encoding: BufferEncoding } = { encoding: 'utf8' };
 
 searchSchemas(rootFolder).forEach((filePath: string): void => {
   const schema = buildClientSchema(
