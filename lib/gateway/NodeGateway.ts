@@ -6,9 +6,8 @@ import {
   ServiceEndpointDefinition,
   RemoteGraphQLDataSource,
 } from '@apollo/gateway';
-import { SchemaDirectiveVisitor } from 'apollo-server';
+import { SchemaDirectiveVisitor, gql } from 'apollo-server';
 import { ServiceDefinition } from '@apollo/federation';
-import gql from 'graphql-tag';
 import {
   DocumentNode,
   graphql,
