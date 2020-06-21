@@ -1,0 +1,120 @@
+{
+	"info": {
+		"_postman_id": "599da391-2adb-4f30-88c2-675436a3dcf5",
+		"name": "NodeInterface",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GetNodes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9cf94e6b-58a6-41a6-b959-813f59020865",
+						"exec": [
+							"pm.test('results', function() {",
+							"    var resp = pm.response.json();",
+							"    pm.expect(resp.data).to.deep.equal({",
+							"        'user1': {",
+							"            'id': 'Mgow',",
+							"            'name': 'Alex',",
+							"        },",
+							"        'user2': {",
+							"            'id': 'Mgox',",
+							"            'name': 'Cody',",
+							"        },",
+							"        'user3': {",
+							"            'id': 'Mgoy',",
+							"            'name': 'Albert',",
+							"        },",
+							"        'post1': {",
+							"            'id': 'MQow',",
+							"            'name': 'Post 1',",
+							"        },",
+							"        'post2': {",
+							"            'id': 'MQox',",
+							"            'name': 'Post 2',",
+							"        },",
+							"        'post3': {",
+							"            'id': 'MQoy',",
+							"            'name': 'Post 3',",
+							"        },",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "query UserQuery($id1: ID!, $id2: ID!, $id3: ID!, $id4: ID!, $id5: ID!, $id6: ID!) {\n    user1: node(id: $id1) {\n        ... on User {\n            id\n            name\n        }\n    }\n    user2: node(id: $id2) {\n        ... on User {\n            id\n            name\n        }\n    }\n    user3: node(id: $id3) {\n        ... on User {\n            id\n            name\n        }\n    }\n    post1: node(id: $id4) {\n        ... on Post {\n            id\n            name\n        }\n    }\n    post2: node(id: $id5) {\n        ... on Post {\n            id\n            name\n        }\n    }\n    post3: node(id: $id6) {\n        ... on Post {\n            id\n            name\n        }\n    }\n}",
+						"variables": "{\n    \"id1\": \"Mgow\",\n    \"id2\": \"Mgox\",\n    \"id3\": \"Mgoy\",\n    \"id4\": \"MQow\",\n    \"id5\": \"MQox\",\n    \"id6\": \"MQoy\"\n}"
+					}
+				},
+				"url": {
+					"raw": "http://localhost:{{PORT}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{PORT}}"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetBooks",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3b9d574a-16b8-40bf-8c42-8567d36ae493",
+						"exec": [
+							"pm.test('results', function() {",
+							"    var resp = pm.response.json();",
+							"    pm.expect(resp.data.books).to.deep.equal([",
+							"        {",
+							"            'id': '1',",
+							"            'name': 'Book 1'",
+							"        },",
+							"        {",
+							"            'id': '2',",
+							"            'name': 'Book 2'",
+							"        }",
+							"    ]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "query GetBooks {\n    books {\n        id\n        name\n    }\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "http://localhost:{{PORT}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{PORT}}"
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
