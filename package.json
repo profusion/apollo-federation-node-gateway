@@ -8,7 +8,7 @@
   "private": false,
   "scripts": {
     "check-types": "tsc --noEmit",
-    "run-lint": "eslint --max-warnings=0 --ext .ts lib",
+    "run-lint": "eslint --max-warnings=0 --ext .ts lib bin",
     "lint": "run-s check-types run-lint",
     "generate-code": "tsc",
     "build": "run-s lint generate-code fix-paths",
