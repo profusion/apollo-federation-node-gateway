@@ -24,13 +24,14 @@
     "yarn": "^1.21.1"
   },
   "dependencies": {
+    "graphql-tag": "^2.11.0",
+    "graphql-tools": "^4.0.0",
     "lodash.difference": "^4.5.0",
     "yargs": "^16.0.3"
   },
   "peerDependencies": {
     "@apollo/federation": "^0.20.4",
     "@apollo/gateway": "^0.20.4",
-    "apollo-server": "^2.18.1",
     "graphql": "^14.7.0"
   },
   "husky": {
