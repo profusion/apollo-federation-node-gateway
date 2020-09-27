@@ -1,6 +1,6 @@
 import { buildFederatedSchema } from '@apollo/federation';
-import { SchemaDirectiveVisitor, mergeSchemas } from 'apollo-server';
 import { DocumentNode, GraphQLSchema } from 'graphql';
+import { SchemaDirectiveVisitor, mergeSchemas } from 'graphql-tools';
 
 import TypeIDDataSource from '@utils/TypeIDDataSource';
 
