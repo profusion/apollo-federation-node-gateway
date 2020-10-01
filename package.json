@@ -6,6 +6,7 @@
   "author": "Guilherme Iscaro (iscaro@profusion.mobi)",
   "license": "MIT",
   "private": false,
+  "repository": "https://github.com/profusion/apollo-federation-node-gateway",
   "scripts": {
     "check-types": "tsc --noEmit",
     "run-lint": "eslint --max-warnings=0 --ext .ts lib bin test",
