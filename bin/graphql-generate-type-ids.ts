@@ -44,7 +44,7 @@ const searchSchemas = (dirPath: string): string[] =>
     }, []);
 
 const nodeTypes = new Set<string>();
-const rootFolder = args._[0];
+const rootFolder = args._[0] as string;
 const fileEncoding: { encoding: BufferEncoding } = { encoding: 'utf8' };
 
 searchSchemas(rootFolder).forEach((filePath: string): void => {
@@ -79,7 +79,7 @@ searchSchemas(rootFolder).forEach((filePath: string): void => {
 let lastId = 0;
 let fileContents: { [key: string]: number } = {};
 
-const typeIdsFilePath = path.join(args._[1], 'typeIds.json');
+const typeIdsFilePath = path.join(args._[1] as string, 'typeIds.json');
 
 try {
   fileContents = JSON.parse(fs.readFileSync(typeIdsFilePath, fileEncoding));
