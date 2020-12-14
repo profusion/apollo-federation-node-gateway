@@ -11,33 +11,42 @@ const args = yargs
   .command('<root> <output>', '', ctx =>
     ctx
       .positional('root', {
-        describe: 'A folder to recursively search for GraphQL schemas',
+        describe: 'A folder to recursively search for GraphQL schemas.',
         type: 'string',
       })
       .positional('output', {
-        describe: 'Where to save the typeIds.json file',
+        describe: 'Where to save the typeIds.json file.',
         type: 'string',
       }),
   )
   .demandCommand(2)
+  .option('ignoreFolders', {
+    alias: 'i',
+    array: true,
+    default: 'node_modules',
+    description:
+      'Folders that should be ignored when scanning GraphQL schemas. If multiple folders should be ignore use space to separate them.',
+    type: 'string',
+  })
   .option('schemaFileName', {
     alias: 's',
     default: 'graphql.schema.json',
-    description: 'The name of the GraphQL schema file. It',
+    description: 'The name of the GraphQL schema file.',
     type: 'string',
   }).argv;
 
+const foldersToIgnore = new Set(args.ignoreFolders);
+
 const searchSchemas = (dirPath: string): string[] =>
   fs
-    .readdirSync(dirPath)
-    .reduce((acc: string[], fileName: string): string[] => {
-      const filePath = path.join(dirPath, fileName);
-      if (fileName === args.schemaFileName) {
+    .readdirSync(dirPath, { encoding: 'utf-8', withFileTypes: true })
+    .reduce((acc: string[], dirEnt: fs.Dirent): string[] => {
+      const filePath = path.join(dirPath, dirEnt.name);
+      if (dirEnt.name === args.schemaFileName) {
         acc.push(filePath);
         return acc;
       }
-      const stat = fs.statSync(filePath);
-      if (stat.isDirectory()) {
+      if (dirEnt.isDirectory() && !foldersToIgnore.has(dirEnt.name)) {
         return acc.concat(searchSchemas(filePath));
       }
       return acc;
