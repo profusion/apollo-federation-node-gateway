@@ -20,14 +20,6 @@
     "declaration": true,
     "baseUrl": ".",
     "outDir": "./build",
-    "paths": {
-      "@gateway/*": ["lib/gateway/*"],
-      "@service/*": ["lib/service/*"],
-      "@utils/*": ["lib/utils/*"],
-      "@gateway": ["lib/gateway"],
-      "@service": ["lib/service"],
-      "@utils": ["lib/utils"]
-    }
   },
   "include": [
     "lib",
