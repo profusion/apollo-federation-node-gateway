@@ -18,8 +18,8 @@ import {
   visit,
 } from 'graphql';
 
-import createNodeService from '@service';
-import TypeIDDataSource from '@utils/TypeIDDataSource';
+import createNodeService from '../service';
+import TypeIDDataSource from '../utils/TypeIDDataSource';
 
 interface NodeGatewayConfig {
   typeIDDataSource: TypeIDDataSource;

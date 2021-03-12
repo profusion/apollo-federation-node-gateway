@@ -2,7 +2,7 @@ import { buildFederatedSchema } from '@apollo/federation';
 import { DocumentNode, GraphQLSchema } from 'graphql';
 import { SchemaDirectiveVisitor, mergeSchemas } from 'graphql-tools';
 
-import TypeIDDataSource from '@utils/TypeIDDataSource';
+import TypeIDDataSource from '../utils/TypeIDDataSource';
 
 import { NodeInterface, createNodeQuery } from './schemas';
 import resolvers from './resolvers';
