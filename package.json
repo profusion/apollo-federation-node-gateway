@@ -26,13 +26,13 @@
   },
   "dependencies": {
     "graphql-tag": "^2.11.0",
-    "graphql-tools": "^4.0.0",
+    "graphql-tools": "^4.0.8",
     "lodash.difference": "^4.5.0",
     "yargs": "^16.2.0"
   },
   "peerDependencies": {
-    "@apollo/federation": "^0.21.0",
-    "@apollo/gateway": "^0.22.0",
+    "@apollo/federation": "^0.22.0",
+    "@apollo/gateway": "^0.24.4",
     "graphql": "^14.7.0"
   },
   "husky": {
@@ -43,34 +43,34 @@
     }
   },
   "devDependencies": {
-    "@apollo/federation": "^0.21.0",
-    "@commitlint/cli": "^11.0.0",
-    "@commitlint/config-angular": "^11.0.0",
+    "@apollo/federation": "^0.22.0",
+    "@commitlint/cli": "^12.0.1",
+    "@commitlint/config-angular": "^12.0.1",
     "@ef-carbon/tspm": "^2.2.5",
     "@types/lodash.difference": "^4.5.6",
-    "@types/newman": "^5.1.1",
-    "@types/yargs": "^15.0.12",
-    "@typescript-eslint/eslint-plugin": "^4.14.0",
-    "@typescript-eslint/parser": "^4.14.0",
-    "apollo-graphql": "^0.6.0",
-    "apollo-server": "^2.19.2",
+    "@types/newman": "^5.1.3",
+    "@types/yargs": "^16.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.17.0",
+    "@typescript-eslint/parser": "^4.17.0",
+    "apollo-graphql": "^0.6.1",
+    "apollo-server": "^2.21.1",
     "dotenv-safe": "^8.2.0",
-    "eslint": "^7.18.0",
+    "eslint": "^7.21.0",
     "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-config-prettier": "^7.2.0",
-    "eslint-import-resolver-typescript": "^2.3.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-import-resolver-typescript": "^2.4.0",
     "eslint-plugin-filenames": "^1.3.2",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-prettier": "^3.3.1",
     "graphql": "^14.7.0",
     "husky": "^4.3.8",
     "install-peers-cli": "^2.2.0",
-    "newman": "^5.1.2",
+    "newman": "^5.2.2",
     "npm-run-all": "^4.1.5",
     "nyc": "^15.1.0",
     "prettier": "^2.2.1",
     "ts-node": "^9.1.1",
     "tsconfig-paths": "^3.9.0",
-    "typescript": "^4.1.3"
+    "typescript": "^4.2.3"
   }
 }
