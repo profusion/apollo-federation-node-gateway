@@ -1,24 +1,21 @@
 import { ApolloServer, gql } from 'apollo-server';
 import { DocumentNode } from 'graphql';
-import { buildFederatedSchema } from '@apollo/federation';
+import { buildSubgraphSchema } from '@apollo/federation';
 import { GraphQLResolverMap } from 'apollo-graphql';
 
-import { NodeInterface, createNodeResolver } from '../lib';
+import { nodeInterface, createNodeResolver } from '../lib';
 
 import typeIDDataSource from './typeId';
 
-const {
-  BOOK_SERVICE_PORT = '4003',
-  POST_SERVICE_PORT = '4002',
-  USER_SERVICE_PORT = '4001',
-} = process.env;
-
-const genNodeTypeDef = (name: string): DocumentNode => gql`
+const genNodeTypeDefs = (name: string): DocumentNode[] => [
+  gql`
   type ${name} implements Node @key(fields: "id") {
     id: ID!
     name: String!
   }
-`;
+`,
+  nodeInterface,
+];
 
 interface User {
   id: number;
@@ -89,37 +86,40 @@ const booksResolver = {
   },
 };
 
+export type ServiceDescription = {
+  name: string;
+  url: string;
+  server: ApolloServer;
+};
+
 const createService = async <T>(
+  name: string,
   typeDefs: DocumentNode[] | DocumentNode,
   resolvers: GraphQLResolverMap<T>,
-  port: number | string,
-): Promise<ApolloServer> => {
+): Promise<ServiceDescription> => {
   const server = new ApolloServer({
-    schema: buildFederatedSchema({
+    schema: buildSubgraphSchema({
       resolvers,
       typeDefs,
     }),
-    subscriptions: false,
   });
-  const { url } = await server.listen({ port });
-  // eslint-disable-next-line no-console
-  console.log(`🚀  Server ready at ${url}`);
-  return server;
+  const { url } = await server.listen(undefined);
+  return { name, server, url };
 };
 
-const services = (): Promise<ApolloServer[]> =>
+const services = (): Promise<ServiceDescription[]> =>
   Promise.all([
     createService<User>(
-      [genNodeTypeDef('User'), NodeInterface],
+      'user',
+      genNodeTypeDefs('User'),
       genNodeResolvers<User>('User', users),
-      USER_SERVICE_PORT,
     ),
     createService<Post>(
-      [genNodeTypeDef('Post'), NodeInterface],
+      'post',
+      genNodeTypeDefs('Post'),
       genNodeResolvers<Post>('Post', posts),
-      POST_SERVICE_PORT,
     ),
-    createService<Book>(booksTypeDefs(), booksResolver, BOOK_SERVICE_PORT),
+    createService<Book>('book', booksTypeDefs(), booksResolver),
   ]);
 
 export default services;

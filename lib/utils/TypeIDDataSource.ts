@@ -30,10 +30,13 @@ export default class TypeIDDataSource {
     );
   }
 
-  public toId = (typename: string, realId: string | number): string =>
-    TypeIDDataSource.base64encode(
-      `${this.typeIds[typename]}${TypeIDDataSource.delimiter}${realId}`,
+  public toId = (typename: string, realId: string | number): string => {
+    const typeId = this.typeIds[typename];
+    if (!typeId) throw new Error('Invalid typename');
+    return TypeIDDataSource.base64encode(
+      `${typeId}${TypeIDDataSource.delimiter}${realId}`,
     );
+  };
 
   public fromId = (id: string): [string, string] => {
     const [typeId, realId] = TypeIDDataSource.base64decode(id).split(

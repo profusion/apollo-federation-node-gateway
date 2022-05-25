@@ -33,7 +33,8 @@ const args = yargs
     default: 'graphql.schema.json',
     description: 'The name of the GraphQL schema file.',
     type: 'string',
-  }).argv;
+  })
+  .parseSync();
 
 const foldersToIgnore = new Set(args.ignoreFolders);
 
@@ -97,7 +98,12 @@ try {
   });
   lastId += 1;
 } catch (err) {
-  if (err.code !== 'ENOENT') throw err;
+  if (
+    !err ||
+    typeof err !== 'object' ||
+    (err as { code?: string }).code !== 'ENOENT'
+  )
+    throw err;
 }
 
 const diff = difference<string>(
