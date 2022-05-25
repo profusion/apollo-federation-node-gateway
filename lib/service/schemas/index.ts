@@ -9,7 +9,7 @@ export const createNodeQuery = (
   }
 `;
 
-export const NodeInterface = gql/* GraphQL */ `
+export const nodeInterface = gql/* GraphQL */ `
   interface Node {
     id: ID!
   }

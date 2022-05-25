@@ -1,9 +1,9 @@
 import { ApolloServer, gql } from 'apollo-server';
 import { DocumentNode } from 'graphql';
-import { buildFederatedSchema } from '@apollo/federation';
+import { buildSubgraphSchema } from '@apollo/federation';
 import { GraphQLResolverMap } from 'apollo-graphql';
 
-import { NodeInterface, createNodeResolver } from '../lib';
+import { nodeInterface, createNodeResolver } from '../lib';
 
 import typeIDDataSource from './typeId';
 
@@ -95,11 +95,10 @@ const createService = async <T>(
   port: number | string,
 ): Promise<ApolloServer> => {
   const server = new ApolloServer({
-    schema: buildFederatedSchema({
+    schema: buildSubgraphSchema({
       resolvers,
       typeDefs,
     }),
-    subscriptions: false,
   });
   const { url } = await server.listen({ port });
   // eslint-disable-next-line no-console
@@ -110,12 +109,12 @@ const createService = async <T>(
 const services = (): Promise<ApolloServer[]> =>
   Promise.all([
     createService<User>(
-      [genNodeTypeDef('User'), NodeInterface],
+      [genNodeTypeDef('User'), nodeInterface],
       genNodeResolvers<User>('User', users),
       USER_SERVICE_PORT,
     ),
     createService<Post>(
-      [genNodeTypeDef('Post'), NodeInterface],
+      [genNodeTypeDef('Post'), nodeInterface],
       genNodeResolvers<Post>('Post', posts),
       POST_SERVICE_PORT,
     ),

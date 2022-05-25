@@ -1,6 +1,6 @@
 import { ApolloServer } from 'apollo-server';
 
-import { NodeGateway } from '../lib';
+import NodeGateway from '../lib/gateway/NodeGateway';
 
 import typeIDDataSource from './typeId';
 
@@ -12,10 +12,9 @@ const {
 } = process.env;
 
 const gateway = async (): Promise<[ApolloServer, NodeGateway]> => {
-  const apolloGateway = new NodeGateway(
-    { typeIDDataSource },
-    {
-      serviceList: [
+  const apolloGateway = new NodeGateway({
+    introspectAndComposeOptions: {
+      subgraphs: [
         {
           name: 'user',
           url: `http://localhost:${USER_SERVICE_PORT}/graphql`,
@@ -30,11 +29,12 @@ const gateway = async (): Promise<[ApolloServer, NodeGateway]> => {
         },
       ],
     },
-  );
+    nodeGatewayConfig: {
+      typeIDDataSource,
+    },
+  });
   const server = new ApolloServer({
-    engine: false,
     gateway: apolloGateway,
-    subscriptions: false,
   });
 
   const { url } = await server.listen({ port: GATEWAY_PORT });

@@ -1,35 +1,33 @@
-import { buildFederatedSchema } from '@apollo/federation';
-import { DocumentNode, GraphQLSchema } from 'graphql';
-import { SchemaDirectiveVisitor, mergeSchemas } from 'graphql-tools';
+import type { DocumentNode, GraphQLSchema } from 'graphql';
 
-import TypeIDDataSource from '../utils/TypeIDDataSource';
+import { buildSubgraphSchema } from '@apollo/federation';
+import { mapSchema } from '@graphql-tools/utils';
 
-import { NodeInterface, createNodeQuery } from './schemas';
+import type { NodeGatewayConfig } from 'lib/subgraphManagers/introspectAddNodeAndCompose';
+
+import { nodeInterface, createNodeQuery } from './schemas';
 import resolvers from './resolvers';
 
-interface SchemaDirectives {
-  [name: string]: typeof SchemaDirectiveVisitor;
-}
-
 export default (
-  idDataSource: TypeIDDataSource,
-  nodeQueryDirectives: string | null | undefined,
-  schemaDirectives: SchemaDirectives | undefined,
-  typeDefs: DocumentNode[],
-): GraphQLSchema =>
-  mergeSchemas({
-    schemaDirectives,
-    schemas: [
-      buildFederatedSchema({
-        resolvers: {
-          ...resolvers.queryResolver,
-          ...resolvers.createNodeResolver(idDataSource),
-        },
-        typeDefs: [
-          createNodeQuery(nodeQueryDirectives),
-          NodeInterface,
-          ...typeDefs,
-        ],
-      }),
+  {
+    nodeQueryDirectives,
+    directiveDefinitions = [],
+    schemaMapper,
+    typeIDDataSource,
+  }: Omit<NodeGatewayConfig, 'nodeTypeDefs'>,
+  nodeTypeDefs: DocumentNode[],
+): GraphQLSchema => {
+  const schema = buildSubgraphSchema({
+    resolvers: {
+      ...resolvers.queryResolver,
+      ...resolvers.createNodeResolver(typeIDDataSource),
+    },
+    typeDefs: [
+      createNodeQuery(nodeQueryDirectives),
+      nodeInterface,
+      ...directiveDefinitions,
+      ...nodeTypeDefs,
     ],
   });
+  return schemaMapper ? mapSchema(schema, schemaMapper) : schema;
+};
