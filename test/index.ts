@@ -7,15 +7,16 @@ import collection from './collection.json';
 import StartGateway from './gateway';
 import StartServices from './services';
 
-const { GATEWAY_PORT = '4000', MAX_CONNECT_RETRIES = '5' } = process.env;
-
-const maxRetries = parseInt(MAX_CONNECT_RETRIES, 10);
+const maxRetries = 5;
 
 const sleep = (milliseconds: number): Promise<void> =>
-  new Promise(resolve => setTimeout(resolve, milliseconds));
+  new Promise(resolve => {
+    setTimeout(resolve, milliseconds);
+  });
 
-const runTests = (): Promise<void> =>
+const runTests = (url: string): Promise<void> =>
   new Promise((resolve, reject) => {
+    const { port } = new URL(url);
     newman.run(
       {
         collection,
@@ -26,7 +27,7 @@ const runTests = (): Promise<void> =>
             {
               key: 'PORT',
               type: 'text',
-              value: GATEWAY_PORT,
+              value: port,
             },
           ],
         },
@@ -34,10 +35,12 @@ const runTests = (): Promise<void> =>
       },
       (err: Error | null, summary: NewmanRunSummary): void => {
         const finalErr = err || summary.error;
+        /* istanbul ignore if */
         if (finalErr) {
           reject(finalErr);
           return;
         }
+        /* istanbul ignore if */
         if (summary.run.failures && summary.run.failures.length > 0) {
           reject(new Error('Postman tests failed'));
           return;
@@ -47,9 +50,9 @@ const runTests = (): Promise<void> =>
     );
   });
 
-const start = async (): Promise<void> => {
+const test = async (): Promise<void> => {
   const services = await StartServices();
-  const [gatewayServer, gateway] = await StartGateway();
+  const [gatewayService, gateway] = await StartGateway(services);
   for (let i = 0; i < maxRetries; i += 1) {
     try {
       await sleep(100);
@@ -58,12 +61,17 @@ const start = async (): Promise<void> => {
       // eslint-disable-next-line no-empty
     } catch (err) {}
   }
-  await runTests();
-  await Promise.all([...services.map(s => s.stop()), gatewayServer.stop()]);
+  await runTests(gatewayService.url);
+  await Promise.all(services.concat(gatewayService).map(s => s.server.stop()));
 };
 
-start().catch(error => {
-  // eslint-disable-next-line no-console
-  console.error('💥  Failed to run tests', error);
-  process.exit(1);
-});
+/* istanbul ignore if */
+if (require.main === module) {
+  test().catch(error => {
+    // eslint-disable-next-line no-console
+    console.error('💥  Failed to run tests', error);
+    process.exit(1);
+  });
+}
+
+export default test;

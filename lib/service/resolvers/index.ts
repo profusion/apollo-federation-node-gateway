@@ -1,4 +1,4 @@
-import TypeIDDataSource from '../../utils/TypeIDDataSource';
+import TypeIDDataSource from 'lib/utils/TypeIDDataSource';
 
 export interface Node {
   id: string;

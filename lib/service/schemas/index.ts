@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { DocumentNode } from 'graphql';
+import type { DocumentNode } from 'graphql';
 
 export const createNodeQuery = (
   directives?: string | null,
@@ -9,7 +9,7 @@ export const createNodeQuery = (
   }
 `;
 
-export const NodeInterface = gql/* GraphQL */ `
+export const nodeInterface = gql/* GraphQL */ `
   interface Node {
     id: ID!
   }

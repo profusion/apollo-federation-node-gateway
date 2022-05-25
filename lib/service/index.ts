@@ -1,35 +1,37 @@
-import { buildFederatedSchema } from '@apollo/federation';
-import { DocumentNode, GraphQLSchema } from 'graphql';
-import { SchemaDirectiveVisitor, mergeSchemas } from 'graphql-tools';
+import { buildSubgraphSchema } from '@apollo/federation';
+import type { DocumentNode, GraphQLSchema } from 'graphql';
+import { mapSchema } from '@graphql-tools/utils';
+import type { SchemaMapper } from '@graphql-tools/utils';
 
-import TypeIDDataSource from '../utils/TypeIDDataSource';
+import type TypeIDDataSource from 'lib/utils/TypeIDDataSource';
 
-import { NodeInterface, createNodeQuery } from './schemas';
+import { nodeInterface, createNodeQuery } from './schemas';
 import resolvers from './resolvers';
 
-interface SchemaDirectives {
-  [name: string]: typeof SchemaDirectiveVisitor;
-}
+export type NodeServiceConfig = {
+  typeIDDataSource: TypeIDDataSource;
+  nodeQueryDirectives?: string | null;
+  schemaMapper?: SchemaMapper;
+  typeDefs?: DocumentNode[];
+};
 
-export default (
-  idDataSource: TypeIDDataSource,
-  nodeQueryDirectives: string | null | undefined,
-  schemaDirectives: SchemaDirectives | undefined,
-  typeDefs: DocumentNode[],
-): GraphQLSchema =>
-  mergeSchemas({
-    schemaDirectives,
-    schemas: [
-      buildFederatedSchema({
-        resolvers: {
-          ...resolvers.queryResolver,
-          ...resolvers.createNodeResolver(idDataSource),
-        },
-        typeDefs: [
-          createNodeQuery(nodeQueryDirectives),
-          NodeInterface,
-          ...typeDefs,
-        ],
-      }),
-    ],
-  });
+export default ({
+  nodeQueryDirectives,
+  schemaMapper,
+  typeIDDataSource,
+  typeDefs,
+}: NodeServiceConfig): GraphQLSchema =>
+  mapSchema(
+    buildSubgraphSchema({
+      resolvers: {
+        ...resolvers.queryResolver,
+        ...resolvers.createNodeResolver(typeIDDataSource),
+      },
+      typeDefs: [
+        createNodeQuery(nodeQueryDirectives),
+        nodeInterface,
+        ...(typeDefs || /* istanbul ignore next */ []),
+      ],
+    }),
+    schemaMapper,
+  );

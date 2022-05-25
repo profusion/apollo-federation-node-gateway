@@ -9,10 +9,9 @@
 /tsconfig.json
 /*.tgz
 /build/examples
-.env
-.env.example
 .nycrc
 .nyc_output
 /test
 /.github
 /bin
+*.test.ts
