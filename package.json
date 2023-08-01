@@ -33,23 +33,20 @@
     "yarn": "^1.21.1"
   },
   "dependencies": {
-    "@apollo/federation-internals": "^2.0.4",
+    "@apollo/federation-internals": "^2.5.1",
     "@apollo/utils.createhash": "^1.1.0",
     "@graphql-tools/utils": "^8.6.12",
     "graphql-tag": "^2.12.6",
     "lodash.difference": "^4.5.0",
-    "yargs": "^17.5.1"
+    "yargs": "^17.5.1",
+    "@apollo/composition": "^2.5.1",
+    "@apollo/gateway": "^2.5.1",
+    "@apollo/subgraph": "^2.5.1"
   },
   "peerDependencies": {
-    "@apollo/composition": "^2.0.4",
-    "@apollo/federation": "^0.36.1",
-    "@apollo/gateway": "^2.0.4",
     "graphql": "^16.5.0"
   },
   "devDependencies": {
-    "@apollo/composition": "^2.0.4",
-    "@apollo/federation": "^0.36.1",
-    "@apollo/gateway": "^2.0.4",
     "@commitlint/cli": "^17.0.2",
     "@commitlint/config-angular": "^17.0.0",
     "@types/jest": "^28.1.0",

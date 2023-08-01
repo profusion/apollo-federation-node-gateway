@@ -1,6 +1,6 @@
 import { ApolloServer, gql } from 'apollo-server';
 import { DocumentNode } from 'graphql';
-import { buildSubgraphSchema } from '@apollo/federation';
+import { buildSubgraphSchema } from '@apollo/subgraph';
 import { GraphQLResolverMap } from 'apollo-graphql';
 
 import { nodeInterface, createNodeResolver } from '../lib';
@@ -99,7 +99,7 @@ const createService = async <T>(
 ): Promise<ServiceDescription> => {
   const server = new ApolloServer({
     schema: buildSubgraphSchema({
-      resolvers,
+      resolvers: resolvers as GraphQLResolverMap<unknown>,
       typeDefs,
     }),
   });

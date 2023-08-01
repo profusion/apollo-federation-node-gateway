@@ -3,10 +3,7 @@ import type {
   SupergraphManager,
   SupergraphSdlHook,
 } from '@apollo/gateway';
-import {
-  buildSchema,
-  extractSubgraphsFromSupergraph,
-} from '@apollo/federation-internals';
+import { Supergraph } from '@apollo/federation-internals';
 import type { Subgraphs } from '@apollo/federation-internals';
 import { compose } from '@apollo/composition';
 import { createHash } from '@apollo/utils.createhash';
@@ -26,7 +23,7 @@ const emptyContext = {} as unknown as NodeSupergraphContext;
 // NOTE: unfortunately we can't get the parsed Subgraphs from IntrospectAndCompose,
 // then we need to parse, rebuild the schema and extract subgraphs from it
 const buildSubgraphsFromSdl = (sdl: string): Subgraphs =>
-  extractSubgraphsFromSupergraph(buildSchema(sdl, { validate: false }));
+  Supergraph.build(sdl, { validateSupergraph: false }).subgraphs();
 
 // NOTE: the following code is similar to IntrospectAndCompose.createSupergraphFromSubgraphList(),
 // adapted to receive Subgraphs + compose instead of ServiceDefinition[] + composeServices

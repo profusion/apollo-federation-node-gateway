@@ -19,18 +19,22 @@ const nodeServiceConfig = {
 const servicesSupergraphSdl = `\
 schema
   @link(url: "https://specs.apollo.dev/link/v1.0")
-  @link(url: "https://specs.apollo.dev/join/v0.2", for: EXECUTION)
+  @link(url: "https://specs.apollo.dev/join/v0.3", for: EXECUTION)
 {
   query: Query
 }
 
-directive @join__field(graph: join__Graph!, requires: join__FieldSet, provides: join__FieldSet, type: String, external: Boolean, override: String, usedOverridden: Boolean) repeatable on FIELD_DEFINITION | INPUT_FIELD_DEFINITION
+directive @join__enumValue(graph: join__Graph!) repeatable on ENUM_VALUE
+
+directive @join__field(graph: join__Graph, requires: join__FieldSet, provides: join__FieldSet, type: String, external: Boolean, override: String, usedOverridden: Boolean) repeatable on FIELD_DEFINITION | INPUT_FIELD_DEFINITION
 
 directive @join__graph(name: String!, url: String!) on ENUM_VALUE
 
 directive @join__implements(graph: join__Graph!, interface: String!) repeatable on OBJECT | INTERFACE
 
-directive @join__type(graph: join__Graph!, key: join__FieldSet, extension: Boolean! = false, resolvable: Boolean! = true) repeatable on OBJECT | INTERFACE | UNION | ENUM | INPUT_OBJECT | SCALAR
+directive @join__type(graph: join__Graph!, key: join__FieldSet, extension: Boolean! = false, resolvable: Boolean! = true, isInterfaceObject: Boolean! = false) repeatable on OBJECT | INTERFACE | UNION | ENUM | INPUT_OBJECT | SCALAR
+
+directive @join__unionMember(graph: join__Graph!, member: String!) repeatable on UNION
 
 directive @link(url: String, as: String, for: link__Purpose, import: [link__Import]) repeatable on SCHEMA
 
@@ -97,18 +101,22 @@ type User implements Node
 const supergraphSdl = `\
 schema
   @link(url: "https://specs.apollo.dev/link/v1.0")
-  @link(url: "https://specs.apollo.dev/join/v0.2", for: EXECUTION)
+  @link(url: "https://specs.apollo.dev/join/v0.3", for: EXECUTION)
 {
   query: Query
 }
 
-directive @join__field(graph: join__Graph!, requires: join__FieldSet, provides: join__FieldSet, type: String, external: Boolean, override: String, usedOverridden: Boolean) repeatable on FIELD_DEFINITION | INPUT_FIELD_DEFINITION
+directive @join__enumValue(graph: join__Graph!) repeatable on ENUM_VALUE
+
+directive @join__field(graph: join__Graph, requires: join__FieldSet, provides: join__FieldSet, type: String, external: Boolean, override: String, usedOverridden: Boolean) repeatable on FIELD_DEFINITION | INPUT_FIELD_DEFINITION
 
 directive @join__graph(name: String!, url: String!) on ENUM_VALUE
 
 directive @join__implements(graph: join__Graph!, interface: String!) repeatable on OBJECT | INTERFACE
 
-directive @join__type(graph: join__Graph!, key: join__FieldSet, extension: Boolean! = false, resolvable: Boolean! = true) repeatable on OBJECT | INTERFACE | UNION | ENUM | INPUT_OBJECT | SCALAR
+directive @join__type(graph: join__Graph!, key: join__FieldSet, extension: Boolean! = false, resolvable: Boolean! = true, isInterfaceObject: Boolean! = false) repeatable on OBJECT | INTERFACE | UNION | ENUM | INPUT_OBJECT | SCALAR
+
+directive @join__unionMember(graph: join__Graph!, member: String!) repeatable on UNION
 
 directive @link(url: String, as: String, for: link__Purpose, import: [link__Import]) repeatable on SCHEMA
 
@@ -122,7 +130,7 @@ type Book
 scalar join__FieldSet
 
 enum join__Graph {
-  NODESERVICE @join__graph(name: "NodeService", url: "node-url/717d11284d78325251f8f664cdd242ae1d970b2ce4be17c170cb8988de12392f")
+  NODESERVICE @join__graph(name: "NodeService", url: "node-url/3d1c5319f5a8c5cf005b8bdaf1fce8164ff6364efe185973d4b3c9156fa0843a")
   BOOK @join__graph(name: "book", url: "http://localhost:4003/graphql")
   POST @join__graph(name: "post", url: "http://localhost:4002/graphql")
   USER @join__graph(name: "user", url: "http://localhost:4001/graphql")
@@ -274,18 +282,22 @@ describe('createNodeGatewayConfig', () => {
           update(`\
 schema
   @link(url: "https://specs.apollo.dev/link/v1.0")
-  @link(url: "https://specs.apollo.dev/join/v0.2", for: EXECUTION)
+  @link(url: "https://specs.apollo.dev/join/v0.3", for: EXECUTION)
 {
   query: Query
 }
 
-directive @join__field(graph: join__Graph!, requires: join__FieldSet, provides: join__FieldSet, type: String, external: Boolean, override: String, usedOverridden: Boolean) repeatable on FIELD_DEFINITION | INPUT_FIELD_DEFINITION
+directive @join__enumValue(graph: join__Graph!) repeatable on ENUM_VALUE
+
+directive @join__field(graph: join__Graph, requires: join__FieldSet, provides: join__FieldSet, type: String, external: Boolean, override: String, usedOverridden: Boolean) repeatable on FIELD_DEFINITION | INPUT_FIELD_DEFINITION
 
 directive @join__graph(name: String!, url: String!) on ENUM_VALUE
 
 directive @join__implements(graph: join__Graph!, interface: String!) repeatable on OBJECT | INTERFACE
 
-directive @join__type(graph: join__Graph!, key: join__FieldSet, extension: Boolean! = false, resolvable: Boolean! = true) repeatable on OBJECT | INTERFACE | UNION | ENUM | INPUT_OBJECT | SCALAR
+directive @join__type(graph: join__Graph!, key: join__FieldSet, extension: Boolean! = false, resolvable: Boolean! = true, isInterfaceObject: Boolean! = false) repeatable on OBJECT | INTERFACE | UNION | ENUM | INPUT_OBJECT | SCALAR
+
+directive @join__unionMember(graph: join__Graph!, member: String!) repeatable on UNION
 
 directive @link(url: String, as: String, for: link__Purpose, import: [link__Import]) repeatable on SCHEMA
 
@@ -335,6 +347,7 @@ type Query
 type User implements Node
   @join__implements(graph: USER, interface: "Node")
   @join__type(graph: USER, key: "id")
+  @join__type(graph: POST, key: "id")
 {
   id: ID!
   name: String!
@@ -368,25 +381,29 @@ type User implements Node
     expect(sdlOptions.update).toBeCalledWith(`\
 schema
   @link(url: "https://specs.apollo.dev/link/v1.0")
-  @link(url: "https://specs.apollo.dev/join/v0.2", for: EXECUTION)
+  @link(url: "https://specs.apollo.dev/join/v0.3", for: EXECUTION)
 {
   query: Query
 }
 
-directive @join__field(graph: join__Graph!, requires: join__FieldSet, provides: join__FieldSet, type: String, external: Boolean, override: String, usedOverridden: Boolean) repeatable on FIELD_DEFINITION | INPUT_FIELD_DEFINITION
+directive @join__enumValue(graph: join__Graph!) repeatable on ENUM_VALUE
+
+directive @join__field(graph: join__Graph, requires: join__FieldSet, provides: join__FieldSet, type: String, external: Boolean, override: String, usedOverridden: Boolean) repeatable on FIELD_DEFINITION | INPUT_FIELD_DEFINITION
 
 directive @join__graph(name: String!, url: String!) on ENUM_VALUE
 
 directive @join__implements(graph: join__Graph!, interface: String!) repeatable on OBJECT | INTERFACE
 
-directive @join__type(graph: join__Graph!, key: join__FieldSet, extension: Boolean! = false, resolvable: Boolean! = true) repeatable on OBJECT | INTERFACE | UNION | ENUM | INPUT_OBJECT | SCALAR
+directive @join__type(graph: join__Graph!, key: join__FieldSet, extension: Boolean! = false, resolvable: Boolean! = true, isInterfaceObject: Boolean! = false) repeatable on OBJECT | INTERFACE | UNION | ENUM | INPUT_OBJECT | SCALAR
+
+directive @join__unionMember(graph: join__Graph!, member: String!) repeatable on UNION
 
 directive @link(url: String, as: String, for: link__Purpose, import: [link__Import]) repeatable on SCHEMA
 
 scalar join__FieldSet
 
 enum join__Graph {
-  NODESERVICE @join__graph(name: "NodeService", url: "node-url/ea5888f40e01ad6953a46749a751c7f6b697309ba6e6b557b736a151ba1022ce")
+  NODESERVICE @join__graph(name: "NodeService", url: "node-url/30cd99f094471afd1a723ff4db537fae9acffcd06e5d41944db644398e970d12")
   POST @join__graph(name: "post", url: "http://localhost:4002/graphql")
   USER @join__graph(name: "user", url: "http://localhost:4001/graphql")
 }
@@ -429,17 +446,18 @@ type Query
   @join__type(graph: USER)
 {
   node(id: ID!): Node @join__field(graph: NODESERVICE)
-  user: User @join__field(graph: USER)
+  user: User @join__field(graph: POST) @join__field(graph: USER)
 }
 
 type User implements Node
   @join__implements(graph: NODESERVICE, interface: "Node")
   @join__implements(graph: USER, interface: "Node")
   @join__type(graph: NODESERVICE, key: "id")
+  @join__type(graph: POST, key: "id")
   @join__type(graph: USER, key: "id")
 {
   id: ID!
-  name: String! @join__field(graph: USER)
+  name: String! @join__field(graph: POST) @join__field(graph: USER)
 }`);
 
     cleanup?.();

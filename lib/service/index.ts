@@ -1,4 +1,4 @@
-import { buildSubgraphSchema } from '@apollo/federation';
+import { buildSubgraphSchema } from '@apollo/subgraph';
 import type { DocumentNode, GraphQLSchema } from 'graphql';
 import { mapSchema } from '@graphql-tools/utils';
 import type { SchemaMapper } from '@graphql-tools/utils';
