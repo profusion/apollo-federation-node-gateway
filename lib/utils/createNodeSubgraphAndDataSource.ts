@@ -5,8 +5,8 @@ import gql from 'graphql-tag';
 
 import { buildSubgraph, isObjectType } from '@apollo/federation-internals';
 
-import createNodeService from 'lib/service';
-import type { NodeServiceConfig } from 'lib/service';
+import createNodeService from '../service';
+import type { NodeServiceConfig } from '../service';
 
 import { createNodeServiceEndPoint } from './constants';
 

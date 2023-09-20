@@ -10,7 +10,7 @@ import {
   SupergraphSdlHookGatewayConfig,
 } from '@apollo/gateway/dist/config';
 
-import type { NodeServiceConfig } from 'lib/service';
+import type { NodeServiceConfig } from '../service';
 
 import createBuildService from './createBuildService';
 import createNodeSupergraphSdlHookAndDataSource from './createNodeSupergraphSdlHookAndDataSource';

@@ -3,7 +3,7 @@ import type { DocumentNode, GraphQLSchema } from 'graphql';
 import { mapSchema } from '@graphql-tools/utils';
 import type { SchemaMapper } from '@graphql-tools/utils';
 
-import type TypeIDDataSource from 'lib/utils/TypeIDDataSource';
+import type TypeIDDataSource from '../utils/TypeIDDataSource';
 
 import { nodeInterface, createNodeQuery } from './schemas';
 import resolvers from './resolvers';

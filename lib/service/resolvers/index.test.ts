@@ -1,4 +1,4 @@
-import TypeIDDataSource from 'lib/utils/TypeIDDataSource';
+import TypeIDDataSource from '../../utils/TypeIDDataSource';
 
 import resolvers from './index';
 
