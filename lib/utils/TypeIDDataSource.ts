@@ -32,7 +32,8 @@ export default class TypeIDDataSource {
 
   public toId = (typename: string, realId: string | number): string => {
     const typeId = this.typeIds[typename];
-    if (!typeId) throw new Error('Invalid typename');
+    if (typeId === null || typeId === undefined)
+      throw new Error('Invalid typename');
     return TypeIDDataSource.base64encode(
       `${typeId}${TypeIDDataSource.delimiter}${realId}`,
     );
