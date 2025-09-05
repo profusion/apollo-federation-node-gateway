@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
-    "target": "ES2015",
+    "target": "ES2022",
     "moduleResolution": "node",
     "module": "CommonJS",
-    "lib": ["es2017", "es7", "es6"],
+    "lib": ["esnext", "dom"],
     "allowJs": true,
     "strict": true,
     "isolatedModules": true,
@@ -19,7 +19,7 @@
     "strictPropertyInitialization": false,
     "declaration": true,
     "baseUrl": ".",
-    "outDir": "./build",
+    "outDir": "./build"
   },
   "include": [
     "lib",
@@ -27,6 +27,7 @@
   ],
   "exclude": [
     "node_modules",
-    "dist"
+    "dist",
+    "lib/**/*.test.ts"
   ]
 }
