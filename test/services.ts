@@ -1,7 +1,9 @@
-import { ApolloServer, gql } from 'apollo-server';
+import { ApolloServer } from '@apollo/server';
+import { startStandaloneServer } from '@apollo/server/standalone';
+import { gql } from 'graphql-tag';
 import { DocumentNode } from 'graphql';
 import { buildSubgraphSchema } from '@apollo/subgraph';
-import { GraphQLResolverMap } from 'apollo-graphql';
+import type { GraphQLResolverMap } from '@apollo/subgraph/dist/schema-helper';
 
 import { nodeInterface, createNodeResolver } from '../lib';
 
@@ -103,7 +105,9 @@ const createService = async <T>(
       typeDefs,
     }),
   });
-  const { url } = await server.listen(undefined);
+  const { url } = await startStandaloneServer(server, {
+    listen: { port: undefined },
+  });
   return { name, server, url };
 };
 

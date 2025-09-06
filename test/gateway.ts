@@ -1,5 +1,6 @@
 import { IntrospectAndCompose } from '@apollo/gateway';
-import { ApolloServer } from 'apollo-server';
+import { ApolloServer } from '@apollo/server';
+import { startStandaloneServer } from '@apollo/server/standalone';
 
 import NodeGateway from '../lib/gateway/NodeGateway';
 
@@ -23,7 +24,9 @@ const gateway = async (
     gateway: apolloGateway,
   });
 
-  const { url } = await server.listen(undefined);
+  const { url } = await startStandaloneServer(server, {
+    listen: { port: 4000 },
+  });
   return [{ name: 'gateway', server, url }, apolloGateway];
 };
 
