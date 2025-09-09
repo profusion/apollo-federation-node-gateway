@@ -59,7 +59,7 @@ const test = async (): Promise<void> => {
       // wait until the gateway has loaded the service definitions
       await gateway.serviceHealthCheck();
       // eslint-disable-next-line no-empty
-    } catch (err) {}
+    } catch {}
   }
   await runTests(gatewayService.url);
   await Promise.all(services.concat(gatewayService).map(s => s.server.stop()));
