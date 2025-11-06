@@ -15,4 +15,3 @@ npm install @profusion/apollo-federation-node-gateway
 
 ### Basic Usage
 
-TODO: Add basic usage example

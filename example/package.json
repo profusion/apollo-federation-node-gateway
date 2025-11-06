@@ -1,0 +1,19 @@
+{
+  "name": "@profusion/apollo-federation-node-gateway-example",
+  "private": true,
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "start": "ts-node ./src/index.ts"
+  },
+  "dependencies": {
+    "@apollo/server": "^5.0.0",
+    "@apollo/subgraph": "^2.11.2",
+    "@profusion/apollo-federation-node-gateway": "^4.0.2",
+    "graphql": "^16.11.0",
+    "graphql-tag": "^2.12.6"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.2"
+  }
+}
