@@ -386,12 +386,12 @@ type User implements Node
     );
     expect(cleanup).toBeDefined();
     expect(result).toBe(supergraphSdl);
-    expect(sdlOptions.update).not.toBeCalled();
+    expect(sdlOptions.update).not.toHaveBeenCalled();
 
     jest.advanceTimersByTime(timeoutInMs);
 
     // new schema without Book and with Query.user
-    expect(sdlOptions.update).toBeCalledWith(`\
+    expect(sdlOptions.update).toHaveBeenCalledWith(`\
 schema
   @link(url: "https://specs.apollo.dev/link/v1.0")
   @link(url: "https://specs.apollo.dev/join/v0.5", for: EXECUTION)
