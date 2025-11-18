@@ -8,12 +8,12 @@ import {
   isSupergraphManagerConfig,
   isSupergraphSdlHookConfig,
   SupergraphSdlHookGatewayConfig,
-} from '@apollo/gateway/dist/config';
+} from '@apollo/gateway/dist/config.js';
 
-import type { NodeServiceConfig } from '../service';
+import type { NodeServiceConfig } from '../service/index.js';
 
-import createBuildService from './createBuildService';
-import createNodeSupergraphSdlHookAndDataSource from './createNodeSupergraphSdlHookAndDataSource';
+import createBuildService from './createBuildService.js';
+import createNodeSupergraphSdlHookAndDataSource from './createNodeSupergraphSdlHookAndDataSource.js';
 
 const createSupergraphManager = (config: GatewayConfig): SupergraphManager => {
   if (isSupergraphManagerConfig(config)) {

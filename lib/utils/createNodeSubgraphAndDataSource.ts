@@ -1,14 +1,14 @@
 import { DocumentNode } from 'graphql';
 import { LocalGraphQLDataSource } from '@apollo/gateway';
 import type { Subgraph } from '@apollo/federation-internals';
-import gql from 'graphql-tag';
+import { gql } from 'graphql-tag';
 
 import { buildSubgraph, isObjectType } from '@apollo/federation-internals';
 
-import createNodeService from '../service';
-import type { NodeServiceConfig } from '../service';
+import createNodeService from '../service/index.js';
+import type { NodeServiceConfig } from '../service/index.js';
 
-import { createNodeServiceEndPoint } from './constants';
+import { createNodeServiceEndPoint } from './constants.js';
 
 const createNodeExternalType = (name: string): DocumentNode =>
   gql`

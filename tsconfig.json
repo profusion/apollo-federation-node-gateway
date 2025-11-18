@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "moduleResolution": "node",
-    "module": "CommonJS",
+    "moduleResolution": "nodenext",
+    "module": "nodenext",
     "lib": ["esnext"],
     "allowJs": true,
     "strict": true,
@@ -19,7 +19,7 @@
     "strictPropertyInitialization": false,
     "declaration": true,
     "baseUrl": ".",
-    "outDir": "./build"
+    "outDir": "./build/esm"
   },
   "include": [
     "lib",
@@ -27,7 +27,7 @@
   ],
   "exclude": [
     "node_modules",
-    "dist",
-    "lib/**/*.test.ts"
+    "build",
+    "example"
   ]
 }

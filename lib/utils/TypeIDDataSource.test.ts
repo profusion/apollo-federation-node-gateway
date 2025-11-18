@@ -1,4 +1,4 @@
-import TypeIDDataSource from './TypeIDDataSource';
+import TypeIDDataSource from './TypeIDDataSource.js';
 
 const typeIds = { Post: '1', User: '2' };
 

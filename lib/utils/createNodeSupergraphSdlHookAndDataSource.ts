@@ -8,9 +8,9 @@ import type { Subgraphs } from '@apollo/federation-internals';
 import { compose } from '@apollo/composition';
 import { createHash } from '@apollo/utils.createhash';
 
-import type { NodeServiceConfig } from '../service';
+import type { NodeServiceConfig } from '../service/index.js';
 
-import createNodeSubgraphAndDataSource from './createNodeSubgraphAndDataSource';
+import createNodeSubgraphAndDataSource from './createNodeSubgraphAndDataSource.js';
 
 type NodeSupergraphContext = Readonly<{
   dataSource: LocalGraphQLDataSource;

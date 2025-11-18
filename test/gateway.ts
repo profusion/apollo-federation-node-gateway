@@ -2,10 +2,10 @@ import { IntrospectAndCompose } from '@apollo/gateway';
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
 
-import NodeGateway from '../lib/gateway/NodeGateway';
+import NodeGateway from '../lib/gateway/NodeGateway.js';
 
-import typeIDDataSource from './typeId';
-import type { ServiceDescription } from './services';
+import typeIDDataSource from './typeId.js';
+import type { ServiceDescription } from './services.js';
 
 const gateway = async (
   services: ServiceDescription[],

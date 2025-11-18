@@ -4,7 +4,7 @@ import {
   ServiceEndpointDefinition,
 } from '@apollo/gateway';
 
-import { isNodeServiceEndpoint } from './constants';
+import { isNodeServiceEndpoint } from './constants.js';
 
 const defaultBuildService = (
   serviceDef: ServiceEndpointDefinition,

@@ -104,6 +104,14 @@
             "rules": {
                 "@typescript-eslint/no-var-requires": "off"
             }
+        },
+        {
+            "files": [
+                "*.test.ts"
+            ],
+            "rules": {
+                "import/no-extraneous-dependencies": ["error", {"devDependencies": true}]
+            }
         }
     ]
 }

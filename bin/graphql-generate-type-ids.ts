@@ -5,9 +5,10 @@ import path from 'path';
 import os from 'os';
 import { buildClientSchema, buildASTSchema, printSchema, parse } from 'graphql';
 import difference from 'lodash.difference';
-import yargs from 'yargs';
+import yargs from 'yargs/yargs';
+import { hideBin } from 'yargs/helpers';
 
-const args = yargs
+const args = yargs(hideBin(process.argv))
   .command('<root> <output>', '', ctx =>
     ctx
       .positional('root', {

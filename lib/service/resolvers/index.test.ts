@@ -1,6 +1,6 @@
-import TypeIDDataSource from '../../utils/TypeIDDataSource';
+import TypeIDDataSource from '../../utils/TypeIDDataSource.js';
 
-import resolvers from './index';
+import resolvers from './index.js';
 
 describe('service/resolves', () => {
   const node = { id: 'MQp4cHRv' };

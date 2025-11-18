@@ -5,9 +5,9 @@ import { DocumentNode } from 'graphql';
 import { buildSubgraphSchema } from '@apollo/subgraph';
 import type { GraphQLResolverMap } from '@apollo/subgraph/dist/schema-helper';
 
-import { nodeInterface, createNodeResolver } from '../lib';
+import { nodeInterface, createNodeResolver } from '../lib/index.js';
 
-import typeIDDataSource from './typeId';
+import typeIDDataSource from './typeId.js';
 
 const genNodeTypeDefs = (name: string): DocumentNode[] => [
   gql`

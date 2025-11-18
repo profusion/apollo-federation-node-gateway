@@ -1,8 +1,8 @@
 import { ApolloGateway } from '@apollo/gateway';
 import type { GatewayConfig } from '@apollo/gateway';
 
-import type { NodeServiceConfig } from '../service';
-import createNodeGatewayConfig from '../utils/createNodeGatewayConfig';
+import type { NodeServiceConfig } from '../service/index.js';
+import createNodeGatewayConfig from '../utils/createNodeGatewayConfig.js';
 
 export default class NodeGateway extends ApolloGateway {
   constructor(

@@ -1,11 +1,14 @@
 /* eslint-disable no-await-in-loop */
 import newman, { NewmanRunSummary } from 'newman';
+import { fileURLToPath } from 'node:url';
 
 // eslint-disable-next-line import/extensions
 import collection from './collection.json';
 
-import StartGateway from './gateway';
-import StartServices from './services';
+import StartGateway from './gateway.js';
+import StartServices from './services.js';
+
+const filename = fileURLToPath(import.meta.url);
 
 const maxRetries = 5;
 
@@ -66,7 +69,7 @@ const test = async (): Promise<void> => {
 };
 
 /* istanbul ignore if */
-if (require.main === module) {
+if (process.argv[1] === filename) {
   test().catch(error => {
     // eslint-disable-next-line no-console
     console.error('💥  Failed to run tests', error);

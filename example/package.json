@@ -3,6 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "license": "MIT",
+  "type": "module",
   "scripts": {
     "start": "ts-node ./src/index.ts"
   },
@@ -10,7 +11,7 @@
     "@apollo/gateway": "^2.12.0",
     "@apollo/server": "^5.1.0",
     "@apollo/subgraph": "^2.12.0",
-    "@profusion/apollo-federation-node-gateway": "^4.0.2",
+    "@profusion/apollo-federation-node-gateway": "../profusion-apollo-federation-node-gateway.tgz",
     "graphql": "^16.12.0",
     "graphql-tag": "^2.12.6"
   },

@@ -1,7 +1,8 @@
 import { GraphQLDataSource, RemoteGraphQLDataSource } from '@apollo/gateway';
+import { jest } from '@jest/globals';
 
-import createBuildService from './createBuildService';
-import { createNodeServiceEndPoint } from './constants';
+import createBuildService from './createBuildService.js';
+import { createNodeServiceEndPoint } from './constants.js';
 
 describe('createBuildService', () => {
   const nodeDataSource = { a: 1 } as unknown as GraphQLDataSource;

@@ -3,7 +3,7 @@ import { startStandaloneServer } from '@apollo/server/standalone';
 import { IntrospectAndCompose } from '@apollo/gateway';
 import { NodeGateway } from '@profusion/apollo-federation-node-gateway';
 
-import typeIDDataSource from './typeIDDataSource';
+import typeIDDataSource from './typeIDDataSource.ts';
 
 const startGateway = async (): Promise<void> => {
   const apolloGateway = new NodeGateway(

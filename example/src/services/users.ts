@@ -7,7 +7,7 @@ import {
   nodeInterface,
 } from '@profusion/apollo-federation-node-gateway';
 
-import typeIDDataSource from '../typeIDDataSource';
+import typeIDDataSource from '../typeIDDataSource.ts';
 
 type UserType = {
   id: string;

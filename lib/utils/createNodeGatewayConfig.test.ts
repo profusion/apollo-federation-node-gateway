@@ -2,14 +2,20 @@ import {
   LocalGraphQLDataSource,
   RemoteGraphQLDataSource,
   SupergraphSdlHook,
+  SubgraphHealthCheckFunction,
+  SupergraphSdlUpdateFunction,
 } from '@apollo/gateway';
-import type { SupergraphSdlHookGatewayConfig } from '@apollo/gateway/dist/config';
-import gql from 'graphql-tag';
+import type {
+  SupergraphSdlHookGatewayConfig,
+  GetDataSourceFunction,
+} from '@apollo/gateway/dist/config.js';
+import { gql } from 'graphql-tag';
+import { jest } from '@jest/globals';
 
-import { createNodeServiceEndPoint } from './constants';
+import { createNodeServiceEndPoint } from './constants.js';
 
-import createNodeGatewayConfig from './createNodeGatewayConfig';
-import TypeIDDataSource from './TypeIDDataSource';
+import createNodeGatewayConfig from './createNodeGatewayConfig.js';
+import TypeIDDataSource from './TypeIDDataSource.js';
 
 const nodeServiceConfig = {
   typeIDDataSource: new TypeIDDataSource({ Post: '1', User: '2' }),
@@ -206,9 +212,9 @@ const testCommonConfig = async (
 ): Promise<void> => {
   await expect(
     config.supergraphSdl({
-      getDataSource: jest.fn(),
-      healthCheck: jest.fn(),
-      update: jest.fn(),
+      getDataSource: jest.fn() as GetDataSourceFunction,
+      healthCheck: jest.fn() as SubgraphHealthCheckFunction,
+      update: jest.fn() as SupergraphSdlUpdateFunction,
     }),
   ).resolves.toEqual({
     cleanup: undefined,
@@ -279,9 +285,9 @@ describe('createNodeGatewayConfig', () => {
       },
     );
     const { cleanup, supergraphSdl: result } = await config.supergraphSdl({
-      getDataSource: jest.fn(),
-      healthCheck: jest.fn(),
-      update: jest.fn(),
+      getDataSource: jest.fn() as GetDataSourceFunction,
+      healthCheck: jest.fn() as SubgraphHealthCheckFunction,
+      update: jest.fn() as SupergraphSdlUpdateFunction,
     });
     expect(cleanup).toBeUndefined();
     expect(result).toContain('type FindMeHere');
@@ -377,9 +383,9 @@ type User implements Node
     });
 
     const sdlOptions = {
-      getDataSource: jest.fn(),
-      healthCheck: jest.fn(),
-      update: jest.fn(),
+      getDataSource: jest.fn() as GetDataSourceFunction,
+      healthCheck: jest.fn() as SubgraphHealthCheckFunction,
+      update: jest.fn() as SupergraphSdlUpdateFunction,
     };
     const { cleanup, supergraphSdl: result } = await config.supergraphSdl(
       sdlOptions,

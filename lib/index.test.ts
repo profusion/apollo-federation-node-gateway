@@ -8,7 +8,7 @@ import {
   NodeGateway,
   createNodeGatewayConfig,
   TypeIDDataSource,
-} from './index';
+} from './index.js';
 
 describe('check library exports', () => {
   it('createNodeResolver is a function', () => {

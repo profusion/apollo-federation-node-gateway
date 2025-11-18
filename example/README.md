@@ -11,7 +11,14 @@ The example uses the Node interface and helper utilities from `@profusion/apollo
 
 Requirements: Node.js (16+), Yarn (used by this project).
 
-From the `example/` folder run:
+First, we need to build the current version of the lib. From the root directory run:
+
+```bash
+yarn install && yarn build && yarn pack --out profusion-apollo-federation-node-gateway.tgz
+```
+
+Now, from the `example/` folder run:
+
 
 ```bash
 yarn install

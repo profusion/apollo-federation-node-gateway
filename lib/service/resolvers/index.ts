@@ -1,4 +1,4 @@
-import TypeIDDataSource from '../../utils/TypeIDDataSource';
+import TypeIDDataSource from '../../utils/TypeIDDataSource.js';
 
 export interface Node {
   id: string;
