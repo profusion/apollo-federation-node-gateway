@@ -1,6 +1,6 @@
 {
   "name": "@profusion/apollo-federation-node-gateway",
-  "version": "4.0.2",
+  "version": "4.1.0",
   "type": "module",
   "main": "./build/cjs/lib/index.js",
   "module": "./build/esm/lib/index.js",
