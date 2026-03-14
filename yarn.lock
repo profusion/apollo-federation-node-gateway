@@ -26,7 +26,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@apollo/federation-internals@npm:2.12.1, @apollo/federation-internals@npm:^2.12.0":
+"@apollo/federation-internals@npm:2.12.1":
   version: 2.12.1
   resolution: "@apollo/federation-internals@npm:2.12.1"
   dependencies:
@@ -37,6 +37,20 @@ __metadata:
   peerDependencies:
     graphql: ^16.5.0
   checksum: 10c0/b8e26bc0a9cc28132651c63ffb91cc0fc6c62088bd81c2da389cb7666c33d8401dbc1bff21dd42a09d311bcbb4fb3a3a1aae19f198da775035ce91bcdd50cbe1
+  languageName: node
+  linkType: hard
+
+"@apollo/federation-internals@npm:^2.12.3":
+  version: 2.13.2
+  resolution: "@apollo/federation-internals@npm:2.13.2"
+  dependencies:
+    "@types/uuid": "npm:^9.0.0"
+    chalk: "npm:^4.1.0"
+    js-levenshtein: "npm:^1.1.6"
+    uuid: "npm:^9.0.0"
+  peerDependencies:
+    graphql: ^16.5.0
+  checksum: 10c0/527b447f401c56b8ad2237d0982547114b6eb6115ccc725500a855df8fd4e768267e1c133d39e381e2a88208097d76c84b2c53db0c73264445b1b1057c0b4101
   languageName: node
   linkType: hard
 
@@ -1791,7 +1805,7 @@ __metadata:
   resolution: "@profusion/apollo-federation-node-gateway@workspace:."
   dependencies:
     "@apollo/composition": "npm:^2.12.0"
-    "@apollo/federation-internals": "npm:^2.12.0"
+    "@apollo/federation-internals": "npm:^2.12.3"
     "@apollo/gateway": "npm:^2.12.0"
     "@apollo/server": "npm:^5.1.0"
     "@apollo/subgraph": "npm:^2.12.0"
