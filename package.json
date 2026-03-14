@@ -56,7 +56,7 @@
   "dependencies": {
     "@apollo/composition": "^2.12.0",
     "@apollo/federation-internals": "^2.12.0",
-    "@apollo/gateway": "^2.12.0",
+    "@apollo/gateway": "^2.12.3",
     "@apollo/subgraph": "^2.12.0",
     "@apollo/utils.createhash": "^3.0.1",
     "@graphql-tools/utils": "^10.10.1",
